@@ -1,10 +1,19 @@
 #include "SearchEngine.h"
 
 address create(string inObj,string inDes){
+    time_t get_time ;
+    time(&get_time);
     address temp = new node;
+    tm * templocaltime=localtime(&get_time);
+    char tempwaktu[250];
+    strftime (tempwaktu,250," %c",templocaltime);
+  
+    
     temp->object=inObj;
     temp->deskripsi=inDes;
     temp->right=temp->left=NULL;
+    temp->deleted=false;
+    temp->waktu=tempwaktu;
     return temp;
 }
 
@@ -19,12 +28,12 @@ void insert(address &root,string inobject,string indeskripsi){
 }
 
 void search(address root,address &newroot, string x ){
-if (root != NULL){
-    if(root->object==x){
+if (root != NULL ){
+    if(root->object==x && root->deleted==false){
         newroot=root;
-    }else if (root->object > x && root->left!=NULL ){
+    }else if (root->object > x){
         search(root->left,newroot,x);
-    }else if (root -> object<x && root ->right!=NULL){
+    }else if (root -> object<= x ){
         search(root->right,newroot,x);
         
 }
@@ -54,10 +63,13 @@ return b;
 }
 
 void PrintDatabase(address root){
-    if(root !=NULL){
+    if(root !=NULL ){
+    if(root->deleted==false){
     cout<<endl<<"object : "<<root->object<<endl;
     cout<<"deskripsi : "<<root->deskripsi<<endl;
-    cout<<"--------------------------------------"<<endl;
+    cout<<"ditambahkan pada : "<<root->waktu<<endl;
+    cout<<"---------------------------------------------------"<<endl;
+    }
     PrintDatabase(root->left);
     PrintDatabase(root->right);
     }

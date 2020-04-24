@@ -11,8 +11,9 @@ cout<<"                             --Program Mini Search Engine--";
 cout<<endl<<"1. lakukan pencarian"<<endl;
 cout<<"2. tambah database"<<endl;
 cout<<"3. keluarkan semua database"<<endl;
-cout<<"4. update data"<<endl;
-cout<<"5. keluar"<<endl<<endl;
+cout<<"4. update deskripsi"<<endl;
+cout<<"5. delete object"<<endl;
+cout<<"6. keluar"<<endl<<endl;
 cout<<"masukkan pilihan : ";
 int input;
 cin>>input;
@@ -44,9 +45,8 @@ case 1 :
          i++;
      }   
      if(count==0){
-         cout<<endl<<"--Maaf data tidak ditemukan--"<<endl<<endl;
+         cout<<endl<<"< data tidak ditemukan >"<<endl<<endl;
      }
-
       break;
   }
 
@@ -65,9 +65,10 @@ case 2 :
         cin.ignore();
         getline(cin,desk,'\n');
         insert(root,obj,desk);
+        cout<<endl<<"< data berhasil ditambahkan >";
         cout<<endl<<endl;
     }else{
-        cout<<endl<<"-objek sudah ada-"<<endl;
+        cout<<endl<<"<objek sudah ada>"<<endl;
         cout<<"objek : "<<cari->object<<endl;
         cout<<"deskripsi : "<<cari->deskripsi;
         cout<<endl<<endl;
@@ -80,7 +81,7 @@ case 3 :
        cout<<"                              --Inside Database--"<<endl;
        PrintDatabase(root);
        if(root==NULL){
-           cout<<"<Database kosong>"<<endl<<endl;
+           cout<<"< database kosong >"<<endl<<endl;
        }
        break;
    }
@@ -95,25 +96,45 @@ case 4:
   address hasil=NULL;
   search(root,hasil,input);
   if (hasil == NULL){
-      cout<<endl<<"Object tidak ditemukan"<<endl;
+      cout<<endl<<"< Object tidak ditemukan >"<<endl;
   }else{
-      cout<<"Masukan Deskripsi : ";
+      cout<<"Update Deskripsi : ";
       cin.ignore();
       getline(cin,input,'\n');
       hasil->deskripsi=input;
+      cout<<endl<<"< data berhasil di update >"<<endl<<endl;
   }
   break;
 }
 case 5:
 {
+ cout <<"\033[2J\033[1;1H";
+  cout<<"                                    --Delete Data--"<<endl;
+  cout<<"object yang ingin di delete : ";
+  string input;
+  cin>>input;
+  address hasil=NULL;
+  search(root,hasil,input);
+  if (hasil == NULL){
+      cout<<endl<<"< Object tidak ditemukan >"<<endl;
+  }else{
+      hasil->deleted=true;
+      cout<<endl<<"< data berhasil di delete >"<<endl;
+  }
+ break;
+}
+
+case 6:
+{
   ulang=false;
-    break;
+  cout<<endl<<"< terima kasih >"<<endl;
+    break;   
 }
 
 default :
 {
    cout<<"\033[2J\033[1;1H";
-   cout<<endl<<"                              -masukkan anda tidak valid -"<<endl<<endl;
+   cout<<endl<<"< masukkan anda tidak valid >"<<endl<<endl;
 }
 }
 }

@@ -5,15 +5,19 @@
 #include <string>
 #include <vector>
 #include <climits>
+#include <time.h>
 using namespace std;
 
 typedef struct node *address;
- 
+
+
 struct node{
     string object;
     string deskripsi;
     address left;
-    address right;  
+    address right;
+    bool deleted;
+    string waktu;
   };
 
 address create(string inObj,string inDes);
